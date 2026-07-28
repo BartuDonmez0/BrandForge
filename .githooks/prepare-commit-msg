@@ -1,0 +1,10 @@
+#!/bin/sh
+# Keep GitHub contributors owner-only: drop injected co-author trailers.
+MSG_FILE="$1"
+if [ -z "$MSG_FILE" ] || [ ! -f "$MSG_FILE" ]; then
+  exit 0
+fi
+TMP_FILE="${MSG_FILE}.tmp"
+grep -v -E '^Co-authored-by:.*(Cursor|cursoragent)' "$MSG_FILE" > "$TMP_FILE" || true
+mv "$TMP_FILE" "$MSG_FILE"
+exit 0
